@@ -1,0 +1,170 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns="sap.ui.table"
+xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.webc.main">
+            <TreeTable id="idTreeTable" rows="{path:'oModel_tree>/', parameters: {arrayNames:['child']}}"
+		 selectionMode="MultiToggle" ariaLabelledBy="title" fixedColumnCount="4" visibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
+		<extension>
+			<m:OverflowToolbar style="Clear">
+            	<m:ToolbarSpacer/>
+					<m:Button text="{i18n>expandCollapse}" press="onExpandCollapse" tooltip="{i18n>expandCollapse}" icon="sap-icon://navigation-right-arrow"/>
+                    <m:Button text="{i18n>logs}" press="onLogsPress" tooltip="{i18n>logs}" icon="sap-icon://dimension"/>
+                    <m:Button icon="sap-icon://refresh" text="{i18n>refresh}" tooltip="{i18n>refresh}"/>
+					<m:Button text="{i18n>CVCStatus}" icon="sap-icon://order-status" tooltip="{i18n>CVCStatus}"/>
+					<m:Button text="{i18n>consumption}" icon="sap-icon://line-charts" tooltip="{i18n>consumption}"/>
+					<m:Button text="{i18n>CVCs}" press="onCVCsPress" icon="sap-icon://sap-box" tooltip="{i18n>CVCs}"/>
+                    <m:Button icon="sap-icon://download" text="{i18n>download}" tooltip="{i18n>download}"/>
+			</m:OverflowToolbar>
+		</extension>
+		<columns>
+			<Column width="6rem">
+				<m:Label id="idTableColLabel1" text="{i18n>material}" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc01}" wrapping="false"/>
+				</template>
+			</Column>
+			<Column width="4.3rem">
+				<m:Label id="idTableColLabel2" text="{i18n>custGroup}" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc02}"/>
+				</template>
+			</Column>
+			<Column width="5rem">
+				<m:Label id="idTableColLabel3" text="{i18n>customer}" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc03}" />
+				</template>
+			</Column>
+			<Column width="7.3rem">
+				<m:Label id="idTableColLabel4" text="{i18n>keyFigures}" />
+				<template>
+					<m:Text id="idKeyFigure" text="{oModel_tree>KeyFigure}" wrapping="false"/>
+				</template>
+			</Column>
+			<!-- <Column width="2.5rem">
+				<m:Label id="idTableColLabel5" />
+				<template>
+					<m:CheckBox id="idCheckBox" visible="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.checkBoxVisibility'}" select="onCheckBoxSelected"/>
+				</template>
+			</Column> -->
+			<Column width="4.6rem" id="idDateColumn1">
+				<m:Label id="idTableColDatLabel1" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty1}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty1', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn2">
+				<m:Label id="idTableColDatLabel2" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty2}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty2', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn3">
+				<m:Label id="idTableColDatLabel3" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty3}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty3', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>	
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn4">
+				<m:Label id="idTableColDatLabel4" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty4}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty4', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn5">
+				<m:Label id="idTableColDatLabel5" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty5}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty5', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+				</Column>
+            <Column width="4.6rem" id="idDateColumn6">
+				<m:Label id="idTableColDatLabel6" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty6}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty6', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn7">
+				<m:Label id="idTableColDatLabel7" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty7}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty7', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn8">
+				<m:Label id="idTableColDatLabel8" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty8}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty8', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn9">
+				<m:Label id="idTableColDatLabel9" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty9}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty9', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn10">
+				<m:Label id="idTableColDatLabel10" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty10}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty10', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn11">
+				<m:Label id="idTableColDatLabel11" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty11}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty11', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>
+            <Column width="4.6rem" id="idDateColumn12">
+				<m:Label id="idTableColDatLabel12" />
+				<template>
+					<m:Text text="{oModel_tree>ProductAllocationQty12}">
+					<m:customData>
+               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty12', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+                	</m:customData>
+					</m:Text>
+				</template>
+			</Column>                    
+		</columns>
+	</TreeTable>
+</core:FragmentDefinition>

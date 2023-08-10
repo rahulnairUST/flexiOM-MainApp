@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		id="idLogsDialog"
+		title="Select Log">
+        <List
+		id="idLogList" items="{logList>/results}">
+		<items>
+			<StandardListItem title="{logList>text}" type="Active" press="onPressLogItem"/>
+		</items>
+	</List>
+	<endButton>
+		<Button id="idLogOptionsClose" text="{i18n>close}" press="onLogOptionsClose"/>
+	</endButton>
+	</Dialog>
+</core:FragmentDefinition>

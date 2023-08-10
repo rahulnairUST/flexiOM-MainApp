@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		id="idCVCsDialog"
+		title="Select Log">
+        <List
+		id="idCVCList" items="{cvcList>/results}">
+		<items>
+			<StandardListItem title="{cvcList>text}" type="Active" press="onPressCVCItem"/>
+		</items>
+	</List>
+	<endButton>
+		<Button id="idCVCDialogClose" text="{i18n>close}" press="onCloseCVCOptions"/>
+	</endButton>
+	</Dialog>
+</core:FragmentDefinition>

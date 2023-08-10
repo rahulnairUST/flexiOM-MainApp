@@ -1,0 +1,19 @@
+/* Enter your custom styles here */
+
+.myApp .sapUiTableCell .sapMText {
+    font-size: .700rem;
+}
+
+.myApp .sapUiTableHeaderDataCell .sapMLabel,
+.sapMListTbl .sapMColumnHeader .sapMLabel {
+    font-size: .700rem;
+}
+
+.myApp .sapUiTableDataCell>.sapUiTableCellInner,
+.sapUiTableCreationRow .sapUiTableCreationRowForm .sapUiTableCell>.sapUiTableCellInner {
+    padding-left: 0.345rem;
+}
+
+span[data-mydata="red"] {
+    background-color: red !important;
+}

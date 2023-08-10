@@ -1,0 +1,116 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns="sap.ui.table"
+xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.webc.main">
+            <Table id="idProductAllocationPlnTable"
+				selectionMode="MultiToggle"
+				ariaLabelledBy="title" enableColumnFreeze="true" fixedColumnCount="4" visibleRowCount="8">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+                        <m:ToolbarSpacer/>
+                        <m:Button text="{i18n>logs}" press="onLogsPress" tooltip="{i18n>logs}" icon="sap-icon://dimension"/>
+                        <m:Button icon="sap-icon://refresh" text="{i18n>refresh}" tooltip="{i18n>refresh}"/>
+						<m:Button text="{i18n>CVCStatus}" icon="sap-icon://order-status" tooltip="{i18n>CVCStatus}"/>
+						<m:Button text="{i18n>consumption}" icon="sap-icon://line-charts" tooltip="{i18n>consumption}"/>
+						<m:Button text="{i18n>CVCs}" press="onCVCsPress" icon="sap-icon://sap-box" tooltip="{i18n>CVCs}"/>
+                        <m:Button icon="sap-icon://download" text="{i18n>download}" tooltip="{i18n>download}"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="6rem">
+						<m:Label id="idTableColLabel1" text="Material Number" />
+						<template>
+							<m:Text text="{ProdAllocCharc01}" />
+						</template>
+					</Column>
+					<Column width="6rem">
+						<m:Label id="idTableColLabel2" text="Customer Group" />
+						<template>
+							<m:Text text="{ProdAllocCharc02}" />
+						</template>
+					</Column>
+                    <Column width="8rem">
+						<m:Label id="idTableColLabel3" text="Sold-To Party - Customer Number" />
+						<template>
+							<m:Text text="{ProdAllocCharc03}" />
+						</template>
+					</Column>
+                    <Column width="4rem">
+						<m:Label id="idTableColLabel4" text="Status" />
+						<template>
+							<m:Text text="{path: 'ProdAllocationActivationStatus', formatter: '.formatter.ProductAllocStatus'}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn1">
+						<m:Label id="idTableColDatLabel1" />
+						<template>
+							<m:Text text="{ProductAllocationQty1}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn2">
+						<m:Label id="idTableColDatLabel2" />
+						<template>
+							<m:Text text="{ProductAllocationQty2}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn3">
+						<m:Label id="idTableColDatLabel3" />
+						<template>
+							<m:Text text="{ProductAllocationQty3}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn4">
+						<m:Label id="idTableColDatLabel4" />
+						<template>
+							<m:Text text="{ProductAllocationQty4}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn5">
+						<m:Label id="idTableColDatLabel5" />
+						<template>
+							<m:Text text="{ProductAllocationQty5}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn6">
+						<m:Label id="idTableColDatLabel6" />
+						<template>
+							<m:Text text="{ProductAllocationQty6}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn7">
+						<m:Label id="idTableColDatLabel7" />
+						<template>
+							<m:Text text="{ProductAllocationQty7}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn8">
+						<m:Label id="idTableColDatLabel8" />
+						<template>
+							<m:Text text="{ProductAllocationQty8}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn9">
+						<m:Label id="idTableColDatLabel9" />
+						<template>
+							<m:Text text="{ProductAllocationQty9}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn10">
+						<m:Label id="idTableColDatLabel10" />
+						<template>
+							<m:Text text="{ProductAllocationQty10}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn11">
+						<m:Label id="idTableColDatLabel11" />
+						<template>
+							<m:Text text="{ProductAllocationQty11}"/>
+						</template>
+					</Column>
+                    <Column width="6rem" id="idDateColumn12">
+						<m:Label id="idTableColDatLabel12" />
+						<template>
+							<m:Text text="{ProductAllocationQty12}"/>
+						</template>
+					</Column>
+						</columns>
+			</Table>
+</core:FragmentDefinition>
