@@ -128,7 +128,7 @@ sap.ui.define([
             // },
             onInit: function () {
                 var that = this;
-                this._initMultiInput();
+                // this._initMultiInput();
                 this._expandCollapse = 0;
                 var oTable = this.getView().byId("idTreeTable");
                 var oToDate, oFromDate;
@@ -172,16 +172,16 @@ sap.ui.define([
 
             },
 
-            _initMultiInput: function () {
-                var oMultiInput = this.getView().byId("idPlanningScreenListMultiInput");
-                var fnValidator = function (oArgs) {
-                    var oObject = oArgs.suggestionObject.getBindingContext().getObject();
-                    var key = oObject.PlanningScreen;
-                    var text = oObject.PlanningScreenDescr;
-                    return new sap.m.Token({ key: key, text: text });
-                };
-                oMultiInput.addValidator(fnValidator);
-            },
+            // _initMultiInput: function () {
+            //     var oMultiInput = this.getView().byId("idPlanningScreenListInput");
+            //     var fnValidator = function (oArgs) {
+            //         var oObject = oArgs.suggestionObject.getBindingContext().getObject();
+            //         var key = oObject.PlanningScreen;
+            //         var text = oObject.PlanningScreenDescr;
+            //         return new sap.m.Token({ key: key, text: text });
+            //     };
+            //     oMultiInput.addValidator(fnValidator);
+            // },
 
             onAfterRendering: function () {
                 this._resourceBundle = this.getView().getModel("i18n").getResourceBundle();
@@ -357,15 +357,22 @@ sap.ui.define([
                 var oFromDate = this.getView().byId("idSelectionRange").getFrom();
                 var oToDate = this.getView().byId("idSelectionRange").getTo();
                 var oView = this.getView();
-                var aFilters = [], ofilter;
-                var aTokens = oView.byId("idPlanningScreenListMultiInput").getTokens();
-                for (var i = 0; i < aTokens.length; i++) {
-                    ofilter = new Filter({
-                        path: 'PlanningScreen',
+                var aFilters = [], ofilter, oKeyFigFilter;
+                var oInputVal = oView.byId("idPlanningScreenListInput").getValue();
+                ofilter = new Filter({
+                    path: 'PlanningScreen',
+                    operator: FilterOperator.EQ,
+                    value1: oInputVal
+                });
+                aFilters.push(ofilter);
+                var aSelectedKeyFigures = oView.byId("idSelectKeyFigues").getSelectedKeys();
+                for(var i=0;i<aSelectedKeyFigures.length;i++) {
+                    oKeyFigFilter = new Filter({
+                        path: 'KeyFigure',
                         operator: FilterOperator.EQ,
-                        value1: aTokens[0].getProperty("key")
+                        value1: aSelectedKeyFigures[i]
                     });
-                    aFilters.push(ofilter);
+                    aFilters.push(oKeyFigFilter);
                 }
                 this._populateTable(oFromDate, oToDate, aFilters);
             },
@@ -462,19 +469,22 @@ sap.ui.define([
                 }
             },
 
-            onValueHelpPlanningScreen: function() {
+            onValueHelpPlanningScreen: function () {
                 var that = this;
                 var oView = this.getView();
-                var oInput = oView.byId("idPlanningScreenListMultiInput");
+                var oInput = oView.byId("idPlanningScreenListInput");
                 this._oBasicSearchField = new sap.m.SearchField();
                 if (!this._oValueHelpDialog) {
                     this._oValueHelpDialog = new sap.ui.comp.valuehelpdialog.ValueHelpDialog("idValueHelp", {
                         key: "PlanningScreen",
+                        supportMultiselect: false,
                         descriptionKey: "PlanningScreenDescr",
                         ok: function (oEvent) {
-                            var aTokens = oEvent.getParameter("tokens");
-                            oInput.setTokens(aTokens);
+                            debugger;
+                            var oInputVal = oEvent.getParameter("tokens")[0].getProperty("key");
+                            oInput.setValue(oInputVal);
                             this.close();
+                            that._onPlanningScreenChanged(oInputVal);
                         },
                         cancel: function () {
                             this.close();
@@ -503,8 +513,8 @@ sap.ui.define([
                         oRowModel.setData(oData);
                         oTable.setModel(oRowModel);
                         oTable.bindRows("/results");
-                        oDialog.setTokens([]);
-                        oDialog.setTokens(oInput.getTokens());
+                        // oDialog.setTokens([]);
+                        // oDialog.setTokens(oInput.getTokens());
                         oDialog.update();
                         oDialog.open();
                     }, error: function (err) {
@@ -513,18 +523,40 @@ sap.ui.define([
                 });
             },
 
+            _onPlanningScreenChanged: function (sValue) {
+                debugger;
+                var oView = this.getView();
+                var ofilter = new Filter({
+                    path: 'PlanningScreen',
+                    operator: FilterOperator.EQ,
+                    value1: sValue
+                });
+                var oModel = this.getOwnerComponent().getModel();
+                oModel.read("/KeyFigF4Help", {
+                    filters: [ofilter],
+                    success: function (oData, response) {
+                        var oKeyFiguresModel = new JSONModel();
+                        oKeyFiguresModel.setData(oData);
+                        oView.setModel(oKeyFiguresModel, "keyFigures");
+                        oView.byId("idSelectKeyFigues").setEnabled(true);
+                    }, error: function (error) {
+
+                    }
+                })
+            },
+
             onRowSelectionChange: function (oEvent) {
                 var ofilterString;
                 var aFilters = [];
                 var ofilter;
-                var oMaterial, oCustGroup, oCustomer, oFiltMaterial = null, oFiltCustGroup = null , oFiltCustomer = null;
+                var oMaterial, oCustGroup, oCustomer, oFiltMaterial = null, oFiltCustGroup = null, oFiltCustomer = null;
                 var oTable = this.getView().byId("idTreeTable");
                 var oRows = oEvent.getSource().getSelectedIndices();
-                for(var i=0;i<oRows.length; i++) {
+                for (var i = 0; i < oRows.length; i++) {
                     var oRowID = oRows[i];
                     var oSelectedRowData = oTable.getRows()[oRowID].getCells()[0].getText();
-                    if(oSelectedRowData === "") {
-                        for (var j=oRowID-1;j>0; j--) {
+                    if (oSelectedRowData === "") {
+                        for (var j = oRowID - 1; j > 0; j--) {
                             var oRow = oTable.getRows()[j];
                             if (oRow.getCells()[0].getText() != "") {
                                 oMaterial = oRow.getCells()[0].getText();
@@ -534,14 +566,14 @@ sap.ui.define([
                                     oFiltMaterial = oMaterial;
                                     oFiltCustGroup = oCustGroup;
                                     oFiltCustomer = oCustomer;
-                                    ofilterString = oFiltMaterial + " " + oFiltCustGroup + " " + oFiltCustomer; 
+                                    ofilterString = oFiltMaterial + " " + oFiltCustGroup + " " + oFiltCustomer;
                                     ofilter = new Filter({
                                         path: 'NewFilter',
                                         operator: FilterOperator.EQ,
                                         value1: ofilterString
                                     });
                                     aFilters.push(ofilter);
-                            }
+                                }
                                 break;
                             } else {
                                 continue;

@@ -14,22 +14,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
 								</fb:FilterGroupItem> -->
                                 <fb:FilterGroupItem id="idPlanningScreenLabel" name="Planning Screen" label="{i18n>planningScreenLabel}" groupName="Group1" visibleInFilterBar="true">
 									<fb:control>
-										<MultiInput id="idPlanningScreenListMultiInput" width="60%" valueHelpRequest="onValueHelpPlanningScreen" suggestionRows="{path: '/PlnScrF4Help', length: 10}">
-											<suggestionColumns>
-												<Column>
-													<Label text="{i18n>planningScreenLabel}"/>
-												</Column>
-												<Column>
-													<Label text="{i18n>planningScreenDesc}"/>
-												</Column>
-											</suggestionColumns>
-											<suggestionRows>
-												<ColumnListItem>
-													<Label text="{PlanningScreen}" />
-													<Label text="{PlanningScreenDescr}" />
-												</ColumnListItem>
-											</suggestionRows>
-										</MultiInput>
+										<Input id="idPlanningScreenListInput" valueHelpOnly="true" width="60%" showValueHelp="true" valueHelpRequest="onValueHelpPlanningScreen"/>
 									</fb:control>
 								</fb:FilterGroupItem>
                                 <!-- <fb:FilterGroupItem id="idDescriptionLabel" name="Description" label="Description" groupName="Group1" visibleInFilterBar="true">
@@ -60,6 +45,14 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
 								<fb:FilterGroupItem id="idSelectionRangeLabel" name="Selection Range" label="{i18n>selectionRangeLabel}" groupName="Group1" visibleInFilterBar="true">
 									<fb:control>
 										<DateRangeSelection id="idSelectionRange" placeholder="Enter Date" change="handleChange"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem id="idKeyFiguresLabel" name="Select Key Figures" label="{i18n>selectKeyFigures}" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+										<MultiComboBox id="idSelectKeyFigues" enabled="false" selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" 
+										items="{keyFigures>/results}">
+											<core:Item key="{keyFigures>line_name}" text="{keyFigures>description}"/>
+										</MultiComboBox>
 									</fb:control>
 								</fb:FilterGroupItem>
                                 <!-- <fb:FilterGroupItem id="idCreationDateTimeLabel" name="Creation Date Time" label="Creation Date Time" groupName="Group1" visibleInFilterBar="false">
