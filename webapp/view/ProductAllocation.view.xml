@@ -9,8 +9,8 @@
     <Page id="page" title="{i18n>appTitle}">
         <content>
         <core:Fragment fragmentName="com.mng.prd.all.dat.mngpalplndata.fragments.Filters" type="XML" />
-		<!-- <core:Fragment fragmentName="com.mng.prd.all.dat.mngpalplndata.fragments.PrdAllcTable" type="XML" /> -->
         <core:Fragment fragmentName="com.mng.prd.all.dat.mngpalplndata.fragments.PrdAllcTreeTable" type="XML" />
+        <!-- <core:Fragment fragmentName="com.mng.prd.all.dat.mngpalplndata.fragments.OrderTable" type="XML"/> -->
         </content>
     </Page>
 </mvc:View>

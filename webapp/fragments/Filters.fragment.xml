@@ -49,9 +49,9 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
 								</fb:FilterGroupItem>
 								<fb:FilterGroupItem id="idKeyFiguresLabel" name="Select Key Figures" label="{i18n>selectKeyFigures}" groupName="Group1" visibleInFilterBar="true">
 									<fb:control>
-										<MultiComboBox id="idSelectKeyFigues" enabled="false" selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" 
+										<MultiComboBox id="idSelectKeyFigures" enabled="false" selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" 
 										items="{keyFigures>/results}">
-											<core:Item key="{keyFigures>line_name}" text="{keyFigures>description}"/>
+											<core:Item key="{keyFigures>line_name}" text="{keyFigures>description}" enabled="{path: 'keyFigures>line_name', formatter: '.formatter.enableSelection'}"/>
 										</MultiComboBox>
 									</fb:control>
 								</fb:FilterGroupItem>

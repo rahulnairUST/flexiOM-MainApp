@@ -26,6 +26,30 @@ sap.ui.define([], function () {
             } else {
                 return false;
             }
+        },
+
+        enableSelection: function(oValue) {
+            if(oValue === "ALLOCATION_QTY") {
+                return false;
+            } else {
+                return true;
+            }
+        },
+
+        setLinkEnabled: function(oValue) {
+            if (oValue === 'Order Incoming Qty') {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        setTextVisible: function(oValue) {
+            if (oValue === 'Order Incoming Qty') {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 

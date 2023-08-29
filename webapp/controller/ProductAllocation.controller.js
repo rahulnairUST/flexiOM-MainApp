@@ -16,130 +16,14 @@ sap.ui.define([
         return Controller.extend("com.mng.prd.all.dat.mngpalplndata.controller.ProductAllocation", {
             formatter: formatter,
 
-            // onInit: function () {
-            //     var that = this;
-            //     var oTable = this.getView().byId("idProductAllocationPlnTable");
-            //     this._oTableTemplate = oTable.clone();
-            //     var oToDate, oFromDate;
-            //     var oDateRangeSelect = this.getView().byId("idSelectionRange");
-            //     var oToday = new Date();
-            //     if (oToday.getDay() === 0) {
-            //         oFromDate = new Date();
-            //         oToDate = new Date();
-            //     } else if (oToday.getDay() === 1) {
-            //         oFromDate = new Date(new Date().setDate(new Date().getDate() - 1));
-            //         oToDate = new Date(new Date().setDate(new Date().getDate() - 1));
-            //     } else if (oToday.getDay() === 2) {
-            //         oFromDate = new Date(new Date().setDate(new Date().getDate() - 2));
-            //         oToDate = new Date(new Date().setDate(new Date().getDate() - 2));
-            //     } else if (oToday.getDay() === 3) {
-            //         oFromDate = new Date(new Date().setDate(new Date().getDate() - 3));
-            //         oToDate = new Date(new Date().setDate(new Date().getDate() - 3));
-            //     } else if (oToday.getDay() === 4) {
-            //         oFromDate = new Date(new Date().setDate(new Date().getDate() - 4));
-            //         oToDate = new Date(new Date().setDate(new Date().getDate() - 4));
-            //     } else if (oToday.getDay() === 5) {
-            //         oFromDate = new Date(new Date().setDate(new Date().getDate() - 5));
-            //         oToDate = new Date(new Date().setDate(new Date().getDate() - 5 ));
-            //     } else if (oToday.getDay() === 6) {
-            //         oFromDate = new Date(new Date().setDate(new Date().getDate() - 6));
-            //         oToDate = new Date(new Date().setDate(new Date().getDate() - 6));
-            //     }
-            //     oToDate = new Date(oToDate.setMonth(oToDate.getMonth() + 3));
-
-            //     oDateRangeSelect.setFrom(oFromDate);
-            //     oDateRangeSelect.setTo(oToDate);
-
-            //     this._createLocalModels();
-
-            //     this._populateTable(oFromDate, oToDate);
-
-            // },
-
-            // _populateTable: function (oFromDate, oToDate) {
-            //     var that = this;
-            //     var oTable = this.getView().byId("idProductAllocationPlnTable");
-            //     var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-            //         pattern: "yyyyMMdd"
-            //     });
-            //     var fDate = oDateFormat.format(oFromDate);
-            //     var tDate = oDateFormat.format(oToDate);
-
-            //     this._oProductAllocationObject = 'MT_AMC_MAT_CUSTGROUP_CUSTOMER';
-
-            //     var aFilters = [];
-            //     var ofilter1, ofilter2;
-            //     ofilter1 = new Filter({
-            //         path: 'ProductAllocationObject',
-            //         operator: FilterOperator.EQ,
-            //         value1: this._oProductAllocationObject
-            //     });
-            //     aFilters.push(ofilter1);
-
-            //     ofilter2 = new Filter({
-            //         path: 'ProdAllocPerdStartUTCDateTime',
-            //         operator: FilterOperator.BT,
-            //         value1: fDate,
-            //         value2: tDate
-            //     });
-            //     aFilters.push(ofilter2);
-            //     oTable.setBusy(true);
-            //     var oModel = this.getOwnerComponent().getModel();
-            //     oModel.read('/ProdAlloc', {
-            //         filters: aFilters,
-            //         urlParameters: { "$top": "1" },
-            //         success: function (oData, result) {
-            //             var oView = that.getView();
-            //             var aDates = [];
-            //             aDates.push(oData.results[0].ProdAllocDate1);
-            //             aDates.push(oData.results[0].ProdAllocDate2);
-            //             aDates.push(oData.results[0].ProdAllocDate3);
-            //             aDates.push(oData.results[0].ProdAllocDate4);
-            //             aDates.push(oData.results[0].ProdAllocDate5);
-            //             aDates.push(oData.results[0].ProdAllocDate6);
-            //             aDates.push(oData.results[0].ProdAllocDate7);
-            //             aDates.push(oData.results[0].ProdAllocDate8);
-            //             aDates.push(oData.results[0].ProdAllocDate9);
-            //             aDates.push(oData.results[0].ProdAllocDate10);
-            //             aDates.push(oData.results[0].ProdAllocDate11);
-            //             aDates.push(oData.results[0].ProdAllocDate12);
-
-            //             for (let i = 0; i < aDates.length; i++) {
-            //                 let idLabel = 'idTableColDatLabel' + Number(i + 1);
-            //                 let idColumn = 'idDateColumn' + Number(i + 1);
-            //                 if (aDates[i]) {
-            //                     oView.byId(idColumn).setVisible(true);
-            //                     oView.byId(idLabel).setText(aDates[i]);
-            //                 } else {
-            //                     oView.byId(idColumn).setVisible(false);
-            //                 }
-            //                 oTable.setBusy(false);
-            //             }
-            //         }, error: function (err) {
-
-            //         }
-            //     });
-
-            //     oTable.bindRows({
-            //         path: "/ProdAlloc",
-            //         filters: aFilters,
-            //         template: this._oTableTemplate
-            //     });
-            // },
             onInit: function () {
                 var that = this;
-                // this._initMultiInput();
                 this._expandCollapse = 0;
+                this._selectedCVC = [];
                 var oTable = this.getView().byId("idTreeTable");
                 var oToDate, oFromDate;
                 var oDateRangeSelect = this.getView().byId("idSelectionRange");
                 var oToday = new Date();
-                // //Demo Temporary Logic
-                // oFromDate = new Date(new Date().setDate(new Date().getDate() - 17));
-                // oFromDate = new Date(oFromDate.setMonth(oFromDate.getMonth() - 5));
-                // oToDate = new Date(new Date().setDate(new Date().getDate() - 17));
-                // oToDate = new Date(oToDate.setMonth(oToDate.getMonth() - 2));
-                // //End of Demo Temporary Logic
                 if (oToday.getDay() === 0) {
                     oFromDate = new Date(new Date().setDate(new Date().getDate() + 1));
                     oToDate = new Date(new Date().setDate(new Date().getDate() + 1));
@@ -168,20 +52,7 @@ sap.ui.define([
                 oDateRangeSelect.setTo(oToDate);
                 this._createLocalModels();
 
-                // this._populateTable(oFromDate, oToDate);
-
             },
-
-            // _initMultiInput: function () {
-            //     var oMultiInput = this.getView().byId("idPlanningScreenListInput");
-            //     var fnValidator = function (oArgs) {
-            //         var oObject = oArgs.suggestionObject.getBindingContext().getObject();
-            //         var key = oObject.PlanningScreen;
-            //         var text = oObject.PlanningScreenDescr;
-            //         return new sap.m.Token({ key: key, text: text });
-            //     };
-            //     oMultiInput.addValidator(fnValidator);
-            // },
 
             onAfterRendering: function () {
                 this._resourceBundle = this.getView().getModel("i18n").getResourceBundle();
@@ -240,6 +111,12 @@ sap.ui.define([
                         aDates.push(oData.results[0].ProdAllocDate10);
                         aDates.push(oData.results[0].ProdAllocDate11);
                         aDates.push(oData.results[0].ProdAllocDate12);
+
+                        that._aDates = aDates;
+                        that._CVCColumns = [];
+                        that._CVCColumns.push("Material");
+                        that._CVCColumns.push("CustomerGroup");
+                        that._CVCColumns.push("Customer");
 
                         for (let i = 0; i < aDates.length; i++) {
                             let idLabel = 'idTableColDatLabel' + Number(i + 1);
@@ -365,8 +242,8 @@ sap.ui.define([
                     value1: oInputVal
                 });
                 aFilters.push(ofilter);
-                var aSelectedKeyFigures = oView.byId("idSelectKeyFigues").getSelectedKeys();
-                for(var i=0;i<aSelectedKeyFigures.length;i++) {
+                var aSelectedKeyFigures = oView.byId("idSelectKeyFigures").getSelectedKeys();
+                for (var i = 0; i < aSelectedKeyFigures.length; i++) {
                     oKeyFigFilter = new Filter({
                         path: 'KeyFigure',
                         operator: FilterOperator.EQ,
@@ -480,7 +357,6 @@ sap.ui.define([
                         supportMultiselect: false,
                         descriptionKey: "PlanningScreenDescr",
                         ok: function (oEvent) {
-                            debugger;
                             var oInputVal = oEvent.getParameter("tokens")[0].getProperty("key");
                             oInput.setValue(oInputVal);
                             this.close();
@@ -513,8 +389,6 @@ sap.ui.define([
                         oRowModel.setData(oData);
                         oTable.setModel(oRowModel);
                         oTable.bindRows("/results");
-                        // oDialog.setTokens([]);
-                        // oDialog.setTokens(oInput.getTokens());
                         oDialog.update();
                         oDialog.open();
                     }, error: function (err) {
@@ -524,7 +398,6 @@ sap.ui.define([
             },
 
             _onPlanningScreenChanged: function (sValue) {
-                debugger;
                 var oView = this.getView();
                 var ofilter = new Filter({
                     path: 'PlanningScreen',
@@ -536,13 +409,140 @@ sap.ui.define([
                     filters: [ofilter],
                     success: function (oData, response) {
                         var oKeyFiguresModel = new JSONModel();
+                        var aSelectedKeys = [];
                         oKeyFiguresModel.setData(oData);
                         oView.setModel(oKeyFiguresModel, "keyFigures");
-                        oView.byId("idSelectKeyFigues").setEnabled(true);
+                        for (var i = 0; i < oData.results.length; i++) {
+                            if (oData.results[i].line_name === "ALLOCATION_QTY") {
+                                aSelectedKeys.push(oData.results[i].line_name);
+                            }
+                        }
+                        oView.byId("idSelectKeyFigures").setSelectedKeys(aSelectedKeys);
+                        oView.byId("idSelectKeyFigures").setEnabled(true);
                     }, error: function (error) {
 
                     }
                 })
+            },
+
+            onCheckBoxSelected: function (oEvent) {
+                var that = this;
+                var oMaterial, oCustGroup, oCustomer, ofilter, aFilters = [];
+                var oRowIndex = oEvent.getSource().getParent().getIndex();
+                var oRowSelectionState = oEvent.getSource().getSelected();
+                var oTable = this.getView().byId("idTreeTable");
+                var oFromDate = this.getView().byId("idSelectionRange").getFrom();
+                var oToDate = this.getView().byId("idSelectionRange").getTo();
+                var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                    pattern: "yyyyMMdd"
+                });
+                var fDate = oDateFormat.format(oFromDate);
+                var tDate = oDateFormat.format(oToDate);
+
+                var ofilter = new Filter({
+                    path: 'ProdAllocPerdStartUTCDateTime',
+                    operator: FilterOperator.BT,
+                    value1: fDate,
+                    value2: tDate
+                });
+                aFilters.push(ofilter);
+                if (oRowSelectionState === true) {
+                    for (var i = oRowIndex; i >= 0; i--) {
+                        var oSelectedRowData = oTable.getRows()[i].getCells()[0].getText();
+                        if (oSelectedRowData === "") {
+                            continue;
+                        } else {
+                            oMaterial = oTable.getRows()[i].getCells()[0].getText();
+                            oCustGroup = oTable.getRows()[i].getCells()[1].getText();
+                            oCustomer = oTable.getRows()[i].getCells()[2].getText();
+                            break;
+                        }
+                    }
+                    debugger;
+                    this._selectedCVC.push({
+                        "rowIndex": oRowIndex,
+                        "Material": oMaterial,
+                        "CustomerGroup": oCustGroup,
+                        "Customer": oCustomer
+                    });
+                } else if (oRowSelectionState === false) {
+                    var oJSONObject = this._selectedCVC.filter(function (item) { return item.rowIndex === oRowIndex; });
+                    var oRowDelete = oJSONObject[0].rowIndex;
+                    var indexes = this._selectedCVC.map(function (item, i) {
+                        if (item.rowIndex == oRowDelete) return i;
+                    }).filter(function (item) { return item != undefined; });
+                    this._selectedCVC.splice(indexes[0], 1);
+                }
+                for (var j = 0; j < this._selectedCVC.length; j++) {
+                    var sMaterial = this._selectedCVC[j].Material;
+                    var sCustomerGroup = this._selectedCVC[j].CustomerGroup;
+                    var sCustomer = this._selectedCVC[j].Customer;
+                    var sFilterString = 'Material=' + sMaterial + ',CustomerGroup=' + sCustomerGroup + ',Customer=' + sCustomer;
+                    ofilter = new Filter({
+                        path: 'CVCFilter',
+                        operator: FilterOperator.EQ,
+                        value1: sFilterString
+                    });
+                    aFilters.push(ofilter);
+                }
+                that.getView().byId("idSalesOrderPanel").setVisible(true);
+                if (aFilters.length > 1) {
+                    var oModel = this.getOwnerComponent().getModel();
+                    oModel.read("/SalesOrder", {
+                        filters: aFilters,
+                        success: function (oData, response) {
+                            that.getView().byId("idSalesOrderPanel").setVisible(true);
+                            that.getView().byId("idOrdDetailsTab").setVisible(true);
+                            that.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
+                        },
+                        error: function () {
+
+                        }
+                    });
+                } else {
+                    this.getView().byId("idSalesOrderPanel").setVisible(false);
+                }
+                that.getView().byId("idOrdDetailsTab").setVisible(true);
+                this.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
+            },
+
+            handleLinkPress: function (oEvent) {
+                var oMaterial, oCustGroup, oCustomer, ofilter, aFilters = [];
+                var oRowIndex = oEvent.getSource().getParent().getIndex();
+                var oColumnIndex = oEvent.getSource().getParent().indexOfCell(oEvent.getSource());
+                var oDate = this._aDates[oColumnIndex - 4];
+                ofilter = new Filter({
+                    path: 'BillingDocumentDate',
+                    operator: FilterOperator.EQ,
+                    value1: oDate
+                });
+                aFilters.push(ofilter);
+                var oTable = this.getView().byId("idTreeTable");
+                for (var i = oRowIndex; i >= 0; i--) {
+                    var oSelectedRowData = oTable.getRows()[i].getCells()[0].getText();
+                    if (oSelectedRowData === "") {
+                        continue;
+                    } else {
+                        oMaterial = oTable.getRows()[i].getCells()[0].getText();
+                        oCustGroup = oTable.getRows()[i].getCells()[1].getText();
+                        oCustomer = oTable.getRows()[i].getCells()[2].getText();
+                        aFilters.push(new Filter({ path: 'Material', operator: FilterOperator.EQ, value1: oMaterial }));
+                        aFilters.push(new Filter({ path: 'CustomerGroup', operator: FilterOperator.EQ, value1: oCustGroup }));
+                        aFilters.push(new Filter({ path: 'Customer', operator: FilterOperator.EQ, value1: oCustomer }));
+                        break;
+                    }
+                }
+
+            },
+
+            onTabSelect: function(oEvent) {
+                debugger;
+                // var oSelectedKey = oEvent.getSource().getSelectedKey();
+                // if (oSelectedKey === "1") {
+                //     this.getView().byId("idTreeTable").getDomRef().scrollIntoView(true);
+                // } else if (oSelectedKey === "2") {
+                //     this.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
+                // }
             },
 
             onRowSelectionChange: function (oEvent) {

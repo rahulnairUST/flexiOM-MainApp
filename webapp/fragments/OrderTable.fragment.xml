@@ -1,0 +1,376 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns="sap.ui.table"
+xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.webc.main">
+			<m:Panel id="idSalesOrderPanel" width="auto" accessibleRole="Region" visible="false">
+				<m:OverflowToolbar>
+					<m:Title text="{i18n>salesOrdItems}"/>
+				</m:OverflowToolbar>
+				<m:content>			
+				<Table id="idSalesOrdTable" selectionMode="MultiToggle" ariaLabelledBy="title" enableColumnFreeze="true" fixedColumnCount="4" visibleRowCount="8">
+					<extension>
+					</extension>
+					<columns>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol1" text="{i18n>salesDoc}" tooltip="{i18n>salesDoc}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol2" text="{i18n>salesDocItem}" tooltip="{i18n>salesDocItem}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol3" text="{i18n>scheduleLineNumber}" tooltip="{i18n>scheduleLineNumber}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol4" text="{i18n>material}" tooltip="{i18n>material}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol5" text="{i18n>materialGroup}" tooltip="{i18n>materialGroup}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol6" text="{i18n>plant}" tooltip="{i18n>plant}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol7" text="{i18n>storageLocation}" tooltip="{i18n>salesDocItem}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol8" text="{i18n>mrpArea}" tooltip="{i18n>mrpArea}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol9" text="{i18n>mrpArea}" tooltip="{i18n>mrpArea}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol10" text="{i18n>orderQuantity}" tooltip="{i18n>orderQuantity}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol11" text="{i18n>confirmQuantity}" tooltip="{i18n>confirmQuantity}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol12" text="{i18n>deliveredQuantity}" tooltip="{i18n>deliveredQuantity}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol13" text="{i18n>openQuantity}" tooltip="{i18n>openQuantity}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol14" text="{i18n>quantity}" tooltip="{i18n>quantityfrAvailCheck}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol15" text="{i18n>baseUnit}" tooltip="{i18n>baseUnitOfMeasure}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol16" text="{i18n>baseUnit}" tooltip="{i18n>baseUnitOfMeasure}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol17" text="{i18n>arrivalTime}" tooltip="{i18n>arrivalTime}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol18" text="{i18n>matAvailTime}" tooltip="{i18n>matAvailTime}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol19" text="{i18n>matlStagTime}" tooltip="{i18n>matlStagTime}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol20" text="{i18n>goodsIssueDate}" tooltip="{i18n>goodsIssueDate}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol21" text="{i18n>goodsIssueTime}" tooltip="{i18n>goodsIssueTime}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol22" text="{i18n>soldToParty}" tooltip="{i18n>soldToParty}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol23" text="{i18n>soldToPartyName}" tooltip="{i18n>soldToPartyName}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol24" text="{i18n>shipToParty}" tooltip="{i18n>shipToParty}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol25" text="{i18n>shipToPartyName}" tooltip="{i18n>shipToPartyName}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol26" text="{i18n>deliveryPriority}" tooltip="{i18n>deliveryPriority}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol27" text="{i18n>fixedDateQty}" tooltip="{i18n>fixedDateQty}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol28" text="{i18n>deliveryGroup}" tooltip="{i18n>deliveryGroup}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol29" text="{i18n>shippingPoint}" tooltip="{i18n>shippingPoint}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol30" text="{i18n>route}" tooltip="{i18n>route}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol31" text="{i18n>shippingCondt}" tooltip="{i18n>shippingCondt}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol32" text="{i18n>deliveryBlock}" tooltip="{i18n>deliveryBlock}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol33" text="{i18n>deliveryBlock}" tooltip="{i18n>deliveryBlock}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol34" text="{i18n>reasonRejection}" tooltip="{i18n>reasonRejection}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol35" text="{i18n>overallCredStat}" tooltip="{i18n>overallCredStat}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol36" text="{i18n>overallDeliveryStat}" tooltip="{i18n>overallDeliveryStat}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol37" text="{i18n>sdDocCategory}" tooltip="{i18n>sdDocCategory}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol38" text="{i18n>salesDocType}" tooltip="{i18n>salesDocType}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol39" text="{i18n>completeDelivery}" tooltip="{i18n>completeDelivery}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol40" text="{i18n>createdOn}" tooltip="{i18n>createdOn}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol41" text="{i18n>maxPartDeliveries}" tooltip="{i18n>maxPartDeliveries}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol42" text="{i18n>salesOrg}" tooltip="{i18n>salesOrg}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol43" text="{i18n>distributionChannel}" tooltip="{i18n>distributionChannel}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol44" text="{i18n>division}" tooltip="{i18n>division}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol45" text="{i18n>customerGroup}" tooltip="{i18n>customerGroup}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol46" text="{i18n>customerGroup1}" tooltip="{i18n>customerGroup1}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol47" text="{i18n>customerGroup2}" tooltip="{i18n>customerGroup2}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol48" text="{i18n>customerGroup3}" tooltip="{i18n>customerGroup3}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol49" text="{i18n>customerGroup4}" tooltip="{i18n>customerGroup4}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol50" text="{i18n>customerGroup5}" tooltip="{i18n>customerGroup5}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol51" text="{i18n>bopStatus}" tooltip="{i18n>bopStatus}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol52" text="{i18n>bopStatusIcon}" tooltip="{i18n>bopStatusIcon}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol53" text="{i18n>bopConfirmationStatus}" tooltip="{i18n>bopConfirmationStatus}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol54" text="{i18n>bopConfirmationStatus}" tooltip="{i18n>bopConfirmationStatus}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol55" text="{i18n>netValue}" tooltip="{i18n>netValue}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol56" text="{i18n>customer}" tooltip="{i18n>customer}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol57" text="{i18n>createdBy}" tooltip="{i18n>createdBy}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol58" text="{i18n>customerPriceGrp}" tooltip="{i18n>customerPriceGrp}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol59" text="{i18n>name}" tooltip="{i18n>name}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+						<Column width="6rem">
+							<m:Label id="idOrdTableCol60" text="{i18n>city}" tooltip="{i18n>city}" wrapping="true"/>
+							<template>
+								<m:Text text="" />
+							</template>
+						</Column>
+					</columns>	
+				</Table>
+			</m:content>
+		</m:Panel>
+</core:FragmentDefinition>

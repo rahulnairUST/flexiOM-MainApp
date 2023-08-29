@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:m="sap.m" xmlns="sap.ui.table"
 xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.webc.main">
-            <TreeTable id="idTreeTable" rows="{path:'oModel_tree>/', parameters: {arrayNames:['child']}}"
-		 selectionMode="MultiToggle" ariaLabelledBy="title" fixedColumnCount="4" visibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
+        <TreeTable id="idTreeTable" rows="{path:'oModel_tree>/', parameters: {arrayNames:['child']}}"
+		 selectionMode="None" ariaLabelledBy="title" fixedColumnCount="4" visibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
 		<extension>
 			<m:OverflowToolbar style="Clear">
             	<m:ToolbarSpacer/>
@@ -39,20 +39,21 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 					<m:Text id="idKeyFigure" text="{oModel_tree>KeyFigure}" wrapping="false"/>
 				</template>
 			</Column>
-			<!-- <Column width="2.5rem">
-				<m:Label id="idTableColLabel5" />
+			<Column width="2.5rem">
+				<m:Label id="idTableColLabel5" tooltip="{i18n>selectCVCOrderProcess}"/>
 				<template>
 					<m:CheckBox id="idCheckBox" visible="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.checkBoxVisibility'}" select="onCheckBoxSelected"/>
 				</template>
-			</Column> -->
+			</Column>
 			<Column width="4.6rem" id="idDateColumn1">
 				<m:Label id="idTableColDatLabel1" />
 				<template>
 					<m:Text text="{oModel_tree>ProductAllocationQty1}">
-					<m:customData>
-               			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty1', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
-                	</m:customData>
+						<m:customData>
+							<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty1', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
+						</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty1}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn2">
@@ -63,6 +64,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty2', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty2}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn3">
@@ -73,6 +75,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty3', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>	
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty3}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn4">
@@ -83,6 +86,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty4', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty4}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn5">
@@ -93,6 +97,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty5', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty5}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 				</Column>
             <Column width="4.6rem" id="idDateColumn6">
@@ -103,6 +108,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty6', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty6}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn7">
@@ -113,6 +119,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty7', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty7}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn8">
@@ -123,6 +130,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty8', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty8}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn9">
@@ -133,6 +141,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty9', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty9}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn10">
@@ -143,6 +152,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty10', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty10}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn11">
@@ -153,6 +163,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty11', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty11}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>
             <Column width="4.6rem" id="idDateColumn12">
@@ -163,8 +174,10 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
                			<core:CustomData key="mydata" value="{path: 'oModel_tree>ProductAllocationQty12', formatter: '.formatter.cellColor'}" writeToDom="true"></core:CustomData>
                 	</m:customData>
 					</m:Text>
+					<!-- <m:Link text="{oModel_tree>ProductAllocationQty12}" press="handleLinkPress" enabled="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.setLinkEnabled'}"/> -->
 				</template>
 			</Column>                    
 		</columns>
 	</TreeTable>
+	<core:Fragment fragmentName="com.mng.prd.all.dat.mngpalplndata.fragments.OrderTable" type="XML"/>
 </core:FragmentDefinition>
