@@ -1,7 +1,8 @@
 <core:FragmentDefinition xmlns:m="sap.m" xmlns="sap.ui.table"
 xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.webc.main">
-        <TreeTable id="idTreeTable" rows="{path:'oModel_tree>/', parameters: {arrayNames:['child']}}"
-		 selectionMode="None" ariaLabelledBy="title" fixedColumnCount="4" visibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
+        <m:Panel id="idProdAllocPanel" visible="false">
+		<TreeTable id="idTreeTable" rows="{path:'oModel_tree>/', parameters: {arrayNames:['child']}}"
+		 selectionMode="None" ariaLabelledBy="title" visibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
 		<extension>
 			<m:OverflowToolbar style="Clear">
             	<m:ToolbarSpacer/>
@@ -15,32 +16,56 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 			</m:OverflowToolbar>
 		</extension>
 		<columns>
-			<Column width="6rem">
-				<m:Label id="idTableColLabel1" text="{i18n>material}" wrapping="true"/>
+			<Column width="6rem" id="idCVCColumn1">
+				<m:Label id="idCVCColLabel1" wrapping="true"/>
 				<template>
 					<m:Text text="{oModel_tree>ProdAllocCharc01}" wrapping="false"/>
 				</template>
 			</Column>
-			<Column width="4.3rem">
-				<m:Label id="idTableColLabel2" text="{i18n>custGroup}" wrapping="true"/>
+			<Column width="4.3rem" id="idCVCColumn2">
+				<m:Label id="idCVCColLabel2" wrapping="true"/>
 				<template>
 					<m:Text text="{oModel_tree>ProdAllocCharc02}"/>
 				</template>
 			</Column>
-			<Column width="5rem">
-				<m:Label id="idTableColLabel3" text="{i18n>customer}" wrapping="true"/>
+			<Column width="5rem" id="idCVCColumn3">
+				<m:Label id="idCVCColLabel3" wrapping="true"/>
 				<template>
 					<m:Text text="{oModel_tree>ProdAllocCharc03}" />
 				</template>
 			</Column>
+			<Column width="5rem" id="idCVCColumn4">
+				<m:Label id="idCVCColLabel4" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc04}" />
+				</template>
+			</Column>
+			<Column width="5rem" id="idCVCColumn5">
+				<m:Label id="idCVCColLabel5" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc05}" />
+				</template>
+			</Column>
+			<Column width="5rem" id="idCVCColumn6">
+				<m:Label id="idCVCColLabel6" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc06}" />
+				</template>
+			</Column>
+			<Column width="5rem" id="idCVCColumn7">
+				<m:Label id="idCVCColLabel7" wrapping="true"/>
+				<template>
+					<m:Text text="{oModel_tree>ProdAllocCharc07}" />
+				</template>
+			</Column>
 			<Column width="7.3rem">
-				<m:Label id="idTableColLabel4" text="{i18n>keyFigures}" />
+				<m:Label id="idTableColLabelKey" text="{i18n>keyFigures}" />
 				<template>
 					<m:Text id="idKeyFigure" text="{oModel_tree>KeyFigure}" wrapping="false"/>
 				</template>
 			</Column>
 			<Column width="2.5rem">
-				<m:Label id="idTableColLabel5" tooltip="{i18n>selectCVCOrderProcess}"/>
+				<m:Label id="idTableColLabelCheck" tooltip="{i18n>selectCVCOrderProcess}"/>
 				<template>
 					<m:CheckBox id="idCheckBox" visible="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.checkBoxVisibility'}" select="onCheckBoxSelected"/>
 				</template>
@@ -179,5 +204,6 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 			</Column>                    
 		</columns>
 	</TreeTable>
+	</m:Panel>
 	<core:Fragment fragmentName="com.mng.prd.all.dat.mngpalplndata.fragments.OrderTable" type="XML"/>
 </core:FragmentDefinition>

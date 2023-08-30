@@ -99,6 +99,8 @@ sap.ui.define([
                     success: function (oData, result) {
                         var oView = that.getView();
                         var aDates = [];
+                        var aCVCs = [];
+                        var cvcCount = 0;
                         aDates.push(oData.results[0].ProdAllocDate1);
                         aDates.push(oData.results[0].ProdAllocDate2);
                         aDates.push(oData.results[0].ProdAllocDate3);
@@ -111,13 +113,17 @@ sap.ui.define([
                         aDates.push(oData.results[0].ProdAllocDate10);
                         aDates.push(oData.results[0].ProdAllocDate11);
                         aDates.push(oData.results[0].ProdAllocDate12);
-
                         that._aDates = aDates;
-                        that._CVCColumns = [];
-                        that._CVCColumns.push("Material");
-                        that._CVCColumns.push("CustomerGroup");
-                        that._CVCColumns.push("Customer");
 
+                        aCVCs.push(oData.results[0].ProdAllocCVC01);
+                        aCVCs.push(oData.results[0].ProdAllocCVC02);
+                        aCVCs.push(oData.results[0].ProdAllocCVC03);
+                        aCVCs.push(oData.results[0].ProdAllocCVC04);
+                        aCVCs.push(oData.results[0].ProdAllocCVC05);
+                        aCVCs.push(oData.results[0].ProdAllocCVC06);
+                        aCVCs.push(oData.results[0].ProdAllocCVC07);
+                        that._aCVCs = aCVCs;
+                        
                         for (let i = 0; i < aDates.length; i++) {
                             let idLabel = 'idTableColDatLabel' + Number(i + 1);
                             let idColumn = 'idDateColumn' + Number(i + 1);
@@ -128,7 +134,19 @@ sap.ui.define([
                                 oView.byId(idColumn).setVisible(false);
                             }
                         }
-                        oTable.setBusy(false);
+
+                        for (let i = 0; i<aCVCs.length; i++) {
+                            let idLabel = 'idCVCColLabel' + Number(i + 1);
+                            let idColumn = 'idCVCColumn' + Number(i + 1);
+                            if (aCVCs[i]) {
+                                oView.byId(idColumn).setVisible(true);
+                                oView.byId(idLabel).setText(aCVCs[i]);
+                                cvcCount = cvcCount + 1;
+                            } else {
+                                oView.byId(idColumn).setVisible(false);
+                            }
+                        }
+                        oTable.setFixedColumnCount(cvcCount + 1);
                         var oItems = oData.results;
                         var oTreeTable = [];
                         var oPrevProdAllocCharc01, oPrevProdAllocCharc02, oPrevProdAllocCharc03;
@@ -216,6 +234,8 @@ sap.ui.define([
                                 });
 
                             }
+                            oView.byId("idProdAllocPanel").setVisible(true);
+                            oTable.setBusy(false);
                         }
 
                         var oModel_tree = new JSONModel();
@@ -427,9 +447,10 @@ sap.ui.define([
 
             onCheckBoxSelected: function (oEvent) {
                 var that = this;
-                var oMaterial, oCustGroup, oCustomer, ofilter, aFilters = [];
+                var ofilter, aFilters = [], sCVCFilter = "", sFilterString;
                 var oRowIndex = oEvent.getSource().getParent().getIndex();
                 var oRowSelectionState = oEvent.getSource().getSelected();
+                var oColumnIndex = oEvent.getSource().getParent().indexOfCell(oEvent.getSource());
                 var oTable = this.getView().byId("idTreeTable");
                 var oFromDate = this.getView().byId("idSelectionRange").getFrom();
                 var oToDate = this.getView().byId("idSelectionRange").getTo();
@@ -452,18 +473,16 @@ sap.ui.define([
                         if (oSelectedRowData === "") {
                             continue;
                         } else {
-                            oMaterial = oTable.getRows()[i].getCells()[0].getText();
-                            oCustGroup = oTable.getRows()[i].getCells()[1].getText();
-                            oCustomer = oTable.getRows()[i].getCells()[2].getText();
+                            for(let j=0; j<oColumnIndex-1; j++) {
+                                sCVCFilter = sCVCFilter + this._aCVCs[j] + '=' + oTable.getRows()[i].getCells()[j].getText() + ',';
+                            }
+                            sFilterString = sCVCFilter.slice(0, sCVCFilter.length - 1);
                             break;
                         }
                     }
-                    debugger;
                     this._selectedCVC.push({
                         "rowIndex": oRowIndex,
-                        "Material": oMaterial,
-                        "CustomerGroup": oCustGroup,
-                        "Customer": oCustomer
+                        "filter": sFilterString
                     });
                 } else if (oRowSelectionState === false) {
                     var oJSONObject = this._selectedCVC.filter(function (item) { return item.rowIndex === oRowIndex; });
@@ -474,14 +493,10 @@ sap.ui.define([
                     this._selectedCVC.splice(indexes[0], 1);
                 }
                 for (var j = 0; j < this._selectedCVC.length; j++) {
-                    var sMaterial = this._selectedCVC[j].Material;
-                    var sCustomerGroup = this._selectedCVC[j].CustomerGroup;
-                    var sCustomer = this._selectedCVC[j].Customer;
-                    var sFilterString = 'Material=' + sMaterial + ',CustomerGroup=' + sCustomerGroup + ',Customer=' + sCustomer;
                     ofilter = new Filter({
                         path: 'CVCFilter',
                         operator: FilterOperator.EQ,
-                        value1: sFilterString
+                        value1: this._selectedCVC[j].filter
                     });
                     aFilters.push(ofilter);
                 }
@@ -492,7 +507,6 @@ sap.ui.define([
                         filters: aFilters,
                         success: function (oData, response) {
                             that.getView().byId("idSalesOrderPanel").setVisible(true);
-                            that.getView().byId("idOrdDetailsTab").setVisible(true);
                             that.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
                         },
                         error: function () {
@@ -502,7 +516,6 @@ sap.ui.define([
                 } else {
                     this.getView().byId("idSalesOrderPanel").setVisible(false);
                 }
-                that.getView().byId("idOrdDetailsTab").setVisible(true);
                 this.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
             },
 
@@ -535,8 +548,7 @@ sap.ui.define([
 
             },
 
-            onTabSelect: function(oEvent) {
-                debugger;
+            onTabSelect: function (oEvent) {
                 // var oSelectedKey = oEvent.getSource().getSelectedKey();
                 // if (oSelectedKey === "1") {
                 //     this.getView().byId("idTreeTable").getDomRef().scrollIntoView(true);
