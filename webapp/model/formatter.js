@@ -21,7 +21,7 @@ sap.ui.define([], function () {
         },
 
         checkBoxVisibility: function(oValue) {
-            if (oValue === "Order Incoming Qty") {  
+            if (oValue === "2") {  
                 return true;
             } else {
                 return false;

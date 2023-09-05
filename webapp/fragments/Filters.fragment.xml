@@ -47,7 +47,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
 										<DateRangeSelection id="idSelectionRange" placeholder="Enter Date" change="handleChange"/>
 									</fb:control>
 								</fb:FilterGroupItem>
-								<fb:FilterGroupItem id="idKeyFiguresLabel" name="Select Key Figures" label="{i18n>selectKeyFigures}" groupName="Group1" visibleInFilterBar="true">
+								<fb:FilterGroupItem id="idKeyFiguresLabel" name="Key Figures" label="{i18n>selectKeyFigures}" groupName="Group1" visibleInFilterBar="true">
 									<fb:control>
 										<MultiComboBox id="idSelectKeyFigures" enabled="false" selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" 
 										items="{keyFigures>/results}">

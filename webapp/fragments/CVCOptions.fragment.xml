@@ -4,8 +4,7 @@
 	<Dialog
 		id="idCVCsDialog"
 		title="Select Log">
-        <List
-		id="idCVCList" items="{cvcList>/results}">
+        <List id="idCVCList" items="{cvcList>/results}">
 		<items>
 			<StandardListItem title="{cvcList>text}" type="Active" press="onPressCVCItem"/>
 		</items>

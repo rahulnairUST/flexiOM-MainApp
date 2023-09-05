@@ -5,20 +5,20 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 					<m:Title text="{i18n>salesOrdItems}"/>
 				</m:OverflowToolbar>
 				<m:content>			
-				<Table id="idSalesOrdTable" selectionMode="MultiToggle" ariaLabelledBy="title" enableColumnFreeze="true" fixedColumnCount="4" visibleRowCount="8">
+				<Table id="idSalesOrdTable" rows="{salesOrder>/results}" selectionMode="MultiToggle" ariaLabelledBy="title" enableColumnFreeze="true" fixedColumnCount="4" visibleRowCountMode="Auto">
 					<extension>
 					</extension>
 					<columns>
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol1" text="{i18n>salesDoc}" tooltip="{i18n>salesDoc}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>SalesOrder}" />
 							</template>
 						</Column>
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol2" text="{i18n>salesDocItem}" tooltip="{i18n>salesDocItem}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>SalesOrderItem}" />
 							</template>
 						</Column>
 						<Column width="6rem">
@@ -30,13 +30,13 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol4" text="{i18n>material}" tooltip="{i18n>material}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>Material}" />
 							</template>
 						</Column>
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol5" text="{i18n>materialGroup}" tooltip="{i18n>materialGroup}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>MaterialGroup}" />
 							</template>
 						</Column>
 						<Column width="6rem">

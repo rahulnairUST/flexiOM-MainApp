@@ -2,7 +2,7 @@
 xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.webc.main">
         <m:Panel id="idProdAllocPanel" visible="false">
 		<TreeTable id="idTreeTable" rows="{path:'oModel_tree>/', parameters: {arrayNames:['child']}}"
-		 selectionMode="None" ariaLabelledBy="title" visibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
+		 selectionMode="None" ariaLabelledBy="title" fixedColumnCount="8" fixedvisibleRowCount="20" enableColumnFreeze="false" rowSelectionChange="onRowSelectionChange">
 		<extension>
 			<m:OverflowToolbar style="Clear">
             	<m:ToolbarSpacer/>
@@ -12,7 +12,8 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 					<m:Button text="{i18n>CVCStatus}" icon="sap-icon://order-status" tooltip="{i18n>CVCStatus}"/>
 					<m:Button text="{i18n>consumption}" icon="sap-icon://line-charts" tooltip="{i18n>consumption}"/>
 					<m:Button text="{i18n>CVCs}" press="onCVCsPress" icon="sap-icon://sap-box" tooltip="{i18n>CVCs}"/>
-                    <m:Button icon="sap-icon://download" text="{i18n>download}" tooltip="{i18n>download}"/>
+                    <m:Button id="idOrderViewBtn" text="{i18n>orderViewON}" press="onOrderViewPress" icon="sap-icon://Chart-Tree-Map" tooltip="{i18n>orderViewON}"/>
+					<m:Button icon="sap-icon://download" text="{i18n>download}" tooltip="{i18n>download}"/>
 			</m:OverflowToolbar>
 		</extension>
 		<columns>
@@ -67,7 +68,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 			<Column width="2.5rem">
 				<m:Label id="idTableColLabelCheck" tooltip="{i18n>selectCVCOrderProcess}"/>
 				<template>
-					<m:CheckBox id="idCheckBox" visible="{path: 'oModel_tree>KeyFigure', formatter: '.formatter.checkBoxVisibility'}" select="onCheckBoxSelected"/>
+					<m:CheckBox id="idCheckBox" visible="{path: 'oModel_tree>KeyFigureID', formatter: '.formatter.checkBoxVisibility'}" select="onCheckBoxSelected" selected="{oModel_tree>CheckBox}"/>
 				</template>
 			</Column>
 			<Column width="4.6rem" id="idDateColumn1">
