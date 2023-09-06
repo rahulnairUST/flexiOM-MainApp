@@ -335,6 +335,8 @@ sap.ui.define([
                             }
                         }
                     }
+                    var oJSONModel = new JSONModel();
+                    oView.setModel(oJSONModel, "salesOrder");
                 }
                 oView.getModel("oModel_tree").refresh();
                 _oDialog.close();
@@ -391,7 +393,7 @@ sap.ui.define([
                             oView.byId("idSalesOrderPanel").setVisible(false);
                         }
                     });
-                }
+                } 
             },
 
             onCloseCVCOptions: function () {
@@ -577,7 +579,6 @@ sap.ui.define([
                     });
                     aFilters.push(ofilter);
                 }
-                that.getView().byId("idSalesOrderPanel").setVisible(true);
                 if (aFilters.length > 1) {
                     var oModel = this.getOwnerComponent().getModel();
                     oModel.read("/SalesOrder", {
