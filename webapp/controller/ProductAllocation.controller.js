@@ -54,7 +54,6 @@ sap.ui.define([
             },
 
             onAfterRendering: function () {
-                debugger;
                 this._salesOrdTableDom = this.getView().byId("idSalesOrderPanel").getDomRef();
                 this._resourceBundle = this.getView().getModel("i18n").getResourceBundle();
             },
@@ -585,7 +584,6 @@ sap.ui.define([
                     oModel.read("/SalesOrder", {
                         filters: aFilters,
                         success: function (oData, response) {
-                            debugger;
                             var oJSONModel = new JSONModel();
                             oJSONModel.setData(oData);
                             that.getView().setModel(oJSONModel, "salesOrder");
