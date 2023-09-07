@@ -17,11 +17,9 @@ sap.ui.define([
             formatter: formatter,
 
             onInit: function () {
-                var that = this;
                 this._expandCollapse = 0;
                 this._OrdViewBtn = 0;
                 this._selectedCVC = [];
-                var oTable = this.getView().byId("idTreeTable");
                 var oToDate, oFromDate;
                 var oDateRangeSelect = this.getView().byId("idSelectionRange");
                 var oToday = new Date();
@@ -56,6 +54,8 @@ sap.ui.define([
             },
 
             onAfterRendering: function () {
+                debugger;
+                this._salesOrdTableDom = this.getView().byId("idSalesOrderPanel").getDomRef();
                 this._resourceBundle = this.getView().getModel("i18n").getResourceBundle();
             },
 
@@ -344,6 +344,7 @@ sap.ui.define([
             },
 
             _populateSalesOrdTable: function (aItems) {
+                var that = this;
                 var ofilter, aFilters = [], sCVCFilterString;
                 var sCVCValue, sFilterString;
                 var oView = this.getView();
@@ -386,11 +387,11 @@ sap.ui.define([
                             var oJSONModel = new JSONModel();
                             oJSONModel.setData(oData);
                             oView.setModel(oJSONModel, "salesOrder");
-                            oView.byId("idSalesOrderPanel").setVisible(true);
-                            oView.byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
+                            oView.byId("idSalesOrdTable").setVisible(true);
+                            that._salesOrdTableDom.scrollIntoView(true);
                         },
                         error: function () {
-                            oView.byId("idSalesOrderPanel").setVisible(false);
+                            oView.byId("idSalesOrdTable").setVisible(false);
                         }
                     });
                 } 
@@ -584,13 +585,14 @@ sap.ui.define([
                     oModel.read("/SalesOrder", {
                         filters: aFilters,
                         success: function (oData, response) {
+                            debugger;
                             var oJSONModel = new JSONModel();
                             oJSONModel.setData(oData);
                             that.getView().setModel(oJSONModel, "salesOrder");
-                            that.getView().byId("idSalesOrderPanel").setVisible(true);
+                            that.getView().byId("idSalesOrdTable").setVisible(true);
                             that._OrdViewBtn = 1;
                             that.getView().byId("idOrderViewBtn").setText(that._resourceBundle.getText("orderViewOFF"));
-                            that.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
+                            that._salesOrdTableDom.scrollIntoView(true);
                         },
                         error: function () {
 
@@ -601,20 +603,20 @@ sap.ui.define([
                     this.getView().byId("idOrderViewBtn").setText(this._resourceBundle.getText("orderViewON"));
                     var oNoData = new JSONModel();
                     that.getView().setModel(oNoData, "salesOrder");
-                    this.getView().byId("idSalesOrderPanel").setVisible(false);
+                    this.getView().byId("idSalesOrdTable").setVisible(false);
                 }
-                this.getView().byId("idSalesOrderPanel").getDomRef().scrollIntoView(true);
             },
 
             onOrderViewPress: function (oEvent) {
                 var oView = this.getView();
                 var oButton = oView.byId("idOrderViewBtn");
                 if (this._OrdViewBtn === 0) {
-                    oView.byId("idSalesOrderPanel").setVisible(true);
+                    oView.byId("idSalesOrdTable").setVisible(true);
                     oButton.setText(this._resourceBundle.getText("orderViewOFF"));
                     this._OrdViewBtn = 1;
+                    this._salesOrdTableDom.scrollIntoView(true);
                 } else {
-                    oView.byId("idSalesOrderPanel").setVisible(false);
+                    oView.byId("idSalesOrdTable").setVisible(false);
                     oButton.setText(this._resourceBundle.getText("orderViewON"));
                     this._OrdViewBtn = 0;
                 }
