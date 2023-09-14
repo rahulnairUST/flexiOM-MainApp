@@ -7,8 +7,10 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 				<m:content>			
 				<Table id="idSalesOrdTable" visible="false" rows="{salesOrder>/results}" selectionMode="MultiToggle" ariaLabelledBy="title" enableColumnFreeze="true" fixedColumnCount="4" visibleRowCountMode="Auto">
 					<extension>
-						<m:OverflowToolbar>
+					<m:OverflowToolbar>
 						<m:Title id="title" text="{i18n>salesOrdItems}"/>
+						<m:ToolbarSpacer/>
+						<m:Button icon="sap-icon://excel-attachment" text="{i18n>download}" tooltip="{i18n>download}" press="onExportSalesOrd"/>
 					</m:OverflowToolbar>
 					</extension>
 					<columns>
@@ -27,7 +29,7 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol3" text="{i18n>scheduleLineNumber}" tooltip="{i18n>scheduleLineNumber}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>ScheduleLine}" />
 							</template>
 						</Column>
 						<Column width="6rem">
@@ -69,25 +71,25 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol10" text="{i18n>orderQuantity}" tooltip="{i18n>orderQuantity}" wrapping="true"/>
 							<template>
-								<m:Text text="{salesOrder>RequestedQuantity}" />
+								<m:Text text="{salesOrder>ScheduleLineOrderQuantity }" />
 							</template>
 						</Column>
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol11" text="{i18n>confirmQuantity}" tooltip="{i18n>confirmQuantity}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>ConfdOrderQtyByMatlAvailCheck}" />
 							</template>
 						</Column>
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol12" text="{i18n>deliveredQuantity}" tooltip="{i18n>deliveredQuantity}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>DeliveredQtyInOrderQtyUnit}" />
 							</template>
 						</Column>
 						<Column width="6rem">
 							<m:Label id="idOrdTableCol13" text="{i18n>openQuantity}" tooltip="{i18n>openQuantity}" wrapping="true"/>
 							<template>
-								<m:Text text="" />
+								<m:Text text="{salesOrder>OpenConfdDelivQtyInOrdQtyUnit}" />
 							</template>
 						</Column>
 						<Column width="6rem">

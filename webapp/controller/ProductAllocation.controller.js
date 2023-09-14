@@ -5,13 +5,17 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/export/library",
+    "sap/ui/export/Spreadsheet",
     "../model/formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Filter, FilterOperator, Fragment, MessageToast, JSONModel, formatter) {
+    function (Controller, Filter, FilterOperator, Fragment, MessageToast, JSONModel, exportLibrary, Spreadsheet, formatter) {
         "use strict";
+
+        var EdmType = exportLibrary.EdmType;
 
         return Controller.extend("com.mng.prd.all.dat.mngpalplndata.controller.ProductAllocation", {
             formatter: formatter,
@@ -45,6 +49,7 @@ sap.ui.define([
                     oFromDate = new Date(new Date().setDate(new Date().getDate() - 5));
                     oToDate = new Date(new Date().setDate(new Date().getDate() - 5));
                 }
+                oFromDate = new Date(oFromDate.setMonth(oFromDate.getMonth() - 7));
                 oToDate = new Date(oToDate.setMonth(oToDate.getMonth() + 3));
 
                 oDateRangeSelect.setFrom(oFromDate);
@@ -393,7 +398,7 @@ sap.ui.define([
                             oView.byId("idSalesOrdTable").setVisible(false);
                         }
                     });
-                } 
+                }
             },
 
             onCloseCVCOptions: function () {
@@ -647,6 +652,444 @@ sap.ui.define([
                     }
                 }
 
+            },
+
+            onExportProdAlloc: function () {
+                var oTable = this.getView().byId("idTreeTable");
+                var oModel = oTable.getModel("oModel_tree");
+                var oJSONData = oModel.getData();
+                this._JSONToCSVConverter(oJSONData);
+            },
+
+            _JSONToCSVConverter: function (JSONData) {
+                var that = this;
+                var arrData = JSONData;
+                var CSV = '', row = "", row1 = "";
+                var oTable = this.getView().byId("idTreeTable");
+                oTable.getColumns().forEach(function (oColumn) {
+                    var sColumnText = oColumn.getLabel().getText();
+                    if (sColumnText) {
+                        row1 += '"' + oColumn.getLabel().getText() + '",';
+                    }
+                });
+                CSV += row1 + '\r\n';
+
+                var i, j, k;
+
+                var createRow = function (level) {
+
+                    if (level === "Parent") {
+                        row = "";
+                        for (var n = 0; n < that._aCVCs.length; n++) {
+                            if (that._aCVCs[n]) {
+                                row += '"' + Object.values(arrData[i])[n] + '",';
+                            }
+                        }
+                        row += '"' + arrData[i].KeyFigure + '",';
+                        row += '"' + arrData[i].ProductAllocationQty1 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty2 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty3 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty4 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty5 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty6 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty7 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty8 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty9 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty10 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty11 + '",';
+                        row += '"' + arrData[i].ProductAllocationQty12 + '",';
+                        CSV += row + "\r\n";
+                    } else if (level === "Child") {
+                        for (var n = 0; n < that._aCVCs.length; n++) {
+                            if (that._aCVCs[n]) {
+                                if (n === 0) {
+                                    row = ",";
+                                } else {
+                                    row += ",";
+                                }
+                            }
+                        }
+                        row += '"' + arrData[i].child[j].KeyFigure + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty1 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty2 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty3 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty4 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty5 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty6 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty7 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty8 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty9 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty10 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty11 + '",';
+                        row += '"' + arrData[i].child[j].ProductAllocationQty12 + '",';
+                        CSV += row + "\r\n";
+                    }
+                };
+
+                for (i = 0; i < arrData.length; i++) {
+                    createRow("Parent");
+                    if (arrData[i].child.length > 0) {
+                        for (j = 0; j < arrData[i].child.length; j++) {
+                            createRow("Child");
+                        }
+                    }
+                }
+
+                if (CSV === "") {
+                    sap.m.MessageToast.show("Invalid data");
+                    return;
+                }
+
+                var fileName = "Product Allocation";
+                var blob = new Blob([CSV], {
+                    type: "text/csv;charset=utf-8;"
+                });
+
+                if (sap.ui.Device.browser.name === "ie") { // IE 10+ 
+                    navigator.msSaveBlob(blob, "Product Allocation.csv");
+                } else {
+                    var uri = 'data:application/csv;charset=utf-8,' + escape(CSV);
+                    var link = document.createElement("a");
+                    link.href = uri;
+                    link.style = "visibility:hidden";
+                    link.download = fileName + ".csv";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            },
+
+            _createColumnsForProdAlloc: function () {
+                var aCols = [], sProperty;
+                for (var i = 0; i < this._aCVCs.length; i++) {
+                    if (this._aCVCs[i]) {
+                        sProperty = "ProdAllocCharc0";
+                        sProperty = sProperty + Number(i + 1);
+                        aCols.push({
+                            label: this._aCVCs[i],
+                            property: sProperty,
+                            type: EdmType.String
+                        });
+                    }
+                }
+                aCols.push({
+                    label: 'Key Figure',
+                    property: 'KeyFigure',
+                    type: EdmType.String
+                });
+                return aCols;
+            },
+
+            onExportSalesOrd: function () {
+                var aCols, oBinding, oModel, oTable;
+                oTable = this.getView().byId("idSalesOrdTable");
+                oModel = oTable.getModel("salesOrder");
+                oBinding = oTable.getBinding("rows");
+                aCols = this._createColumnsForSalesOrder();
+
+                new Spreadsheet({
+                    workbook: {
+                        columns: aCols
+                    },
+                    dataSource: oBinding.getModel().getProperty(oBinding.getPath()),
+                    fileName: "Sales Order.xlsx",
+                }).build();
+            },
+
+            _createColumnsForSalesOrder: function () {
+                var aCols = [];
+                var oResourceModel = this._resourceBundle;
+                aCols.push({
+                    label: oResourceModel.getText("salesDoc"),
+                    property: 'SalesOrder',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("salesDocItem"),
+                    property: 'SalesOrderItem',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("scheduleLineNumber"),
+                    property: 'ScheduleLine',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("material"),
+                    property: 'Material',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("materialGroup"),
+                    property: 'MaterialGroup',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("plant"),
+                    property: 'ProductionPlant',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("storageLocation"),
+                    property: 'StorageLocation',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("mrpArea"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("mrpArea"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("orderQuantity"),
+                    property: 'ScheduleLineOrderQuantity',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("confirmQuantity"),
+                    property: 'ConfdOrderQtyByMatlAvailCheck',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("deliveredQuantity"),
+                    property: 'DeliveredQtyInOrderQtyUnit',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("openQuantity"),
+                    property: 'OpenConfdDelivQtyInOrdQtyUnit',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("quantity"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("baseUnit"),
+                    property: 'OrderQuantityUnit',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("arrivalTime"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("matAvailTime"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("matlStagTime"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("goodsIssueDate"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("goodsIssueTime"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("soldToParty"),
+                    property: 'PurchaseOrderByCustomer',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("soldToPartyName"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("shipToParty"),
+                    property: 'PurchaseOrderByShipToParty',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("shipToPartyName"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("deliveryPriority"),
+                    property: 'DeliveryPriority',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("fixedDateQty"),
+                    property: 'FixedValueDate',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("deliveryGroup"),
+                    property: 'DeliveryGroup',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("shippingPoint"),
+                    property: 'ShippingPoint',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("route"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("shippingCondt"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("deliveryBlock"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("deliveryBlock"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("reasonRejection"),
+                    property: 'SalesDocumentRjcnReason',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("overallCredStat"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("overallDeliveryStat"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("sdDocCategory"),
+                    property: 'SalesOrderItemCategory',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("salesDocType"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("completeDelivery"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("createdOn"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("maxPartDeliveries"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("salesOrg"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("distributionChannel"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("division"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customerGroup"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customerGroup1"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customerGroup2"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customerGroup4"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customerGroup5"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("bopStatus"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("bopStatusIcon"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("bopConfirmationStatus"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("bopConfirmationStatus"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("netValue"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customer"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("createdBy"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("customerPriceGrp"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("name"),
+                    property: '',
+                    type: EdmType.String
+                });
+                aCols.push({
+                    label: oResourceModel.getText("city"),
+                    property: '',
+                    type: EdmType.String
+                });
+                return aCols;
             },
 
             onTabSelect: function (oEvent) {
