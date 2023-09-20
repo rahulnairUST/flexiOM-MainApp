@@ -8,8 +8,8 @@ xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:webc="sap.ui.web
             	<m:ToolbarSpacer/>
 					<m:Button text="{i18n>expandCollapse}" press="onExpandCollapse" tooltip="{i18n>expandCollapse}" icon="sap-icon://navigation-right-arrow"/>
                     <m:Button text="{i18n>logs}" press="onLogsPress" tooltip="{i18n>logs}" icon="sap-icon://dimension"/>
-                    <m:Button icon="sap-icon://refresh" text="{i18n>refresh}" tooltip="{i18n>refresh}"/>
-					<m:Button text="{i18n>CVCStatus}" icon="sap-icon://order-status" tooltip="{i18n>CVCStatus}"/>
+                    <m:Button icon="sap-icon://refresh" text="{i18n>refresh}" tooltip="{i18n>refresh}" press="onRefreshProductAlloc"/>
+					<m:Button text="{i18n>CVCStatus}" icon="sap-icon://order-status" tooltip="{i18n>CVCStatus}" press="onCVCStatusPressed"/>
 					<m:Button text="{i18n>consumption}" icon="sap-icon://line-charts" tooltip="{i18n>consumption}"/>
 					<m:Button text="{i18n>CVCs}" press="onCVCsPress" icon="sap-icon://sap-box" tooltip="{i18n>CVCs}"/>
                     <m:Button id="idOrderViewBtn" text="{i18n>orderViewON}" press="onOrderViewPress" icon="sap-icon://Chart-Tree-Map" tooltip="{i18n>orderViewON}"/>

@@ -63,6 +63,43 @@ sap.ui.define([
                 this._resourceBundle = this.getView().getModel("i18n").getResourceBundle();
             },
 
+            onRefreshProductAlloc: function() {
+                var that = this;
+                sap.m.MessageBox.confirm(this._resourceBundle.getText("refreshMsg"), {
+                    title: this._resourceBundle.getText("confirm"),                                    // default
+                    onClose: function(oEvent) {
+                        if (oEvent === "YES") {
+                            that.onSearch();
+                        } else if (oEvent === "NO") {
+
+                        }    
+                    },                                       // default
+                    styleClass: "",                                      // default
+                    actions: [sap.m.MessageBox.Action.YES,
+                    sap.m.MessageBox.Action.NO],         // default
+                    emphasizedAction: sap.m.MessageBox.Action.OK,        // default
+                    initialFocus: null,                                  // default
+                    textDirection: sap.ui.core.TextDirection.Inherit     // default
+                });
+            },
+
+            onCVCStatusPressed: function() {
+                var oView = this.getView();
+                this._pDialog = this.loadFragment({
+                    name: "com.mng.prd.all.dat.mngpalplndata.fragments.CVCStatus"
+                }).then(function (oDialog) {
+                    oView.addDependent(oDialog);
+                    // oView.byId("idLogList").setModel(this._oLogModel, "logList");
+                    oDialog.open();
+                }.bind(this));
+            },
+
+            onCloseCVCStatusDialog: function() {
+                var _oDialog = this.getView().byId("idCVCStatus");
+                _oDialog.close();
+                _oDialog.destroy();
+            },
+
             _populateTable: function (oFromDate, oToDate, aFilters) {
                 var that = this;
                 var oView = this.getView();
